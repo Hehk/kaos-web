@@ -6,6 +6,7 @@ let make = (~message, _children) => {
   ...component,
   render: (_self) =>
     <div className="App">
+      <Header />
       <div className="App-header">
         <h2> (textEl(message)) </h2>
       </div>

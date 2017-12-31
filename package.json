@@ -5,7 +5,8 @@
   "dependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "reason-scripts": "0.8.0"
+    "reason-scripts": "0.8.0",
+    "tachyons": "4.9.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -13,11 +14,12 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "prepare": "npm link bs-platform"
-  }, "devDependencies": {
+  },
+  "devDependencies": {
     "bs-enzyme": "^0.3.0",
+    "bs-jest": "^0.3.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "bs-jest": "^0.3.1",
     "reason-react": "^0.3.0"
   }
 }
