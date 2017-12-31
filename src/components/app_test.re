@@ -15,7 +15,7 @@ describe(
       "component renders",
       (_) => {
         let component = setup();
-        expect(Enzyme.exists(component)) |> toBe(true)
+        component |> Enzyme.exists |> expect |> toBe(true)
       }
     );
     test(
@@ -24,7 +24,7 @@ describe(
         let message = "hello world";
         let component = setup(~message, ());
         let expectedNode = <h2> (ReasonReact.stringToElement(message)) </h2>;
-        expect(component |> Enzyme.contains(expectedNode)) |> toBe(true)
+        component |> Enzyme.contains(expectedNode) |> expect |> toBe(true)
       }
     )
   }
