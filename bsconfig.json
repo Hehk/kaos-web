@@ -5,9 +5,10 @@
     "subdirs": true
   }],
   "bs-dependencies": [
-    "reason-react",
+    "bs-enzyme",
     "bs-jest",
-    "bs-enzyme"
+    "reason-react",
+    "reason-apollo"
   ],
   "reason": {
     "react-jsx": 2

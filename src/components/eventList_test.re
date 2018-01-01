@@ -4,7 +4,7 @@ open Expect;
 
 Enzyme.configureEnzyme(Enzyme.react_16_adapter());
 
-let setup = (~events=[||], ()) => Enzyme.shallow(<EventList events />);
+let setup = () => Enzyme.shallow(<EventList />);
 
 describe(
   "EventList Component",
