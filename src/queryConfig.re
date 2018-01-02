@@ -1,8 +1,10 @@
 [@bs.module] external gql : ReasonApolloTypes.gql = "graphql-tag";
 
 let query = [@bs] gql({|
-  query getEvents {
-    name
+  query {
+    allEvents {
+      name
+    }
   }
 |});
 
