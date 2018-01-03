@@ -9,7 +9,7 @@ let query = [@bs] gql({|
 |});
 
 type event = {. "name": string };
-type data = {. "todos": array(event)};
+type data = {. "allEvents": array(event)};
 type response = data;
 
 type variables = {. "id": string };

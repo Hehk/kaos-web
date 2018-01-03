@@ -1,8 +1,10 @@
 open Utils;
 
-module FetchEvents = Apollo.Client.Query(QueryConfig);
+module FetchEvents = Apollo.Client.Query(AllEventsQueryConfig);
 
 let component = ReasonReact.statelessComponent("EventList");
+
+let createEvent = (event: AllEventsQueryConfig.event) => <Event name=event##name />;
 
 let make = (_children) => {
   ...component,
@@ -13,7 +15,7 @@ let make = (_children) => {
           switch response {
           | Loading => <div> (textEl("loading")) </div>
           | Failed(error) => <div> (textEl(error)) </div>
-          | Loaded(_result) => <div> (textEl("worked")) </div>
+          | Loaded(result) => result##allEvents |> Array.map(createEvent) |> arrayEl
           }
       )
     </FetchEvents>
