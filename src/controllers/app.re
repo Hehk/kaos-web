@@ -25,7 +25,7 @@ let make = (_children) => {
       <Header />
       (
         switch self.state.path {
-        | [] => <EventList />
+        | [] => <EventTable />
         | ["login"] => <div> (textEl("login")) </div>
         | ["signup"] => <div> (textEl("signup")) </div>
         | _ => <div> (textEl("un recognised")) </div>
