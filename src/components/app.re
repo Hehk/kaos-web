@@ -7,25 +7,25 @@ type action =
 
 let component = ReasonReact.reducerComponent("App");
 
-let make = _children => {
+let make = (_children) => {
   ...component,
-  initialState: () => {path: [""]},
+  initialState: () => {path: []},
   reducer: (action, _state) =>
     switch action {
     | ChangeRoute(url) => ReasonReact.Update({path: url.path})
     },
-  subscriptions: self => [
+  subscriptions: (self) => [
     Sub(
-      () => ReasonReact.Router.watchUrl(url => self.send(ChangeRoute(url))),
+      () => ReasonReact.Router.watchUrl((url) => self.send(ChangeRoute(url))),
       ReasonReact.Router.unwatchUrl
     )
   ],
-  render: self =>
+  render: (self) =>
     <div className="App">
       <Header />
       (
         switch self.state.path {
-        | [""] => <EventList />
+        | [] => <EventList />
         | ["login"] => <div> (textEl("login")) </div>
         | ["signup"] => <div> (textEl("signup")) </div>
         | _ => <div> (textEl("un recognised")) </div>
