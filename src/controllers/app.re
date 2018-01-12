@@ -19,10 +19,9 @@ let mapUrlToRoute = (url: ReasonReact.Router.url) =>
   };
 
 let reducer = (action, _state) =>
-    switch action {
-    | ChangeRoute(url) => ReasonReact.Update({route: url |> mapUrlToRoute})
-    };
-
+  switch action {
+  | ChangeRoute(url) => ReasonReact.Update({route: url |> mapUrlToRoute})
+  };
 
 let component = ReasonReact.reducerComponent("App");
 
