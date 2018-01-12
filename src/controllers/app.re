@@ -37,7 +37,10 @@ let make = (_children) => {
   ],
   render: ({state}) =>
     <div className="App">
-      <Header />
+      <Header
+        simpleLinks=[{path: "/about", content: "About"}, {path: "/github", content: "Github"}]
+        buttonLinks=[{path: "/login", content: "LOG IN"}, {path: "/signup", content: "SIGN UP"}]
+      />
       (
         switch state.route {
         | Home => <EventTable />
