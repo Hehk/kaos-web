@@ -16,6 +16,6 @@ describe(
         let name = "testing";
         setup(~name, ()) |> Enzyme.contains(ReasonReact.stringToElement(name)) |> expect |> toBe(true)
       }
-    )
+    );
   }
 );

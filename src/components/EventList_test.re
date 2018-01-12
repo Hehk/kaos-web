@@ -7,7 +7,7 @@ open Expect;
 Enzyme.configureEnzyme(Enzyme.react_16_adapter());
 
 let shallow = Enzyme.shallow;
-let setup = (~name="", ()) => Enzyme.shallow(<EventList name />);
+let setup = (~name="", ~events=[], ()) => Enzyme.shallow(<EventList events name />);
 
 describe(
   "EventList Component",
@@ -17,6 +17,13 @@ describe(
       let name = "testing";
       let textElement = textEl(name);
       shallow(<EventList name />) |> Enzyme.contains(textElement) |> expect |> toBe(true);
+      });
+    test(
+      "renders a list of events",
+      () => {
+        let name = "crazy name";
+        let l : list(Event.t) = [{ name: name }];
+        setup(~events=l, ()) |> Enzyme.html |> expect |> toContainString(name)
       });
 
   });

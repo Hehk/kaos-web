@@ -7,10 +7,19 @@ type t = {
 
 let component = ReasonReact.statelessComponent("EventList");
 
-let make = (~name, _children) => {
+let make = (~name, ~events: list(Event.t)=[], _children) => {
   ...component,
   render: _self => {
-    <div>(textEl(name))</div>
+    <div>
+      <div className="f3"> (textEl(name)) </div>
+      <div>
+      (
+        events
+        |> List.map((event: Event.t)=> <Event key=(name ++ event.name) name=event.name />)
+        |> listEl
+      )
+      </div>
+    </div>
   }
 };
 
