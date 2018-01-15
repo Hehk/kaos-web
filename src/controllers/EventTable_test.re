@@ -12,7 +12,7 @@ describe("EventTable Component", () => {
 
 describe("EventTable Reducer", () => {
   test("MoveEvent", () => {
-    let state : EventTable.state = { columns: [] };
+    let state : EventTable.state = { eventLists: [] };
     switch (EventTable.reducer(EventTable.MoveEvent, state)) {
       | ReasonReact.Update(newState) => newState |> expect |> toEqual(state)
       | _ => false |> expect |> toBe(true)
