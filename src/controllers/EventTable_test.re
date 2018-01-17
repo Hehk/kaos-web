@@ -27,13 +27,13 @@ describe(
 );
 
 describe(
-  "resolveOpenEdit",
+  "reduceOpenEdit",
   () =>
     test(
       "basic call",
       () => {
         let state: EventTable.state = EventTable.initialState();
-        EventTable.resolveOpenEdit(1, 2, state)
+        EventTable.reduceOpenEdit(~listIndex=1, ~eventIndex=2, state)
         |> expect
         |> toEqual({...state, edit: {active: true, listIndex: 1, eventIndex: 2}})
       }
@@ -41,15 +41,19 @@ describe(
 );
 
 describe(
-  "resolveCloseEdit",
+  "reduceCloseEdit",
   () =>
     test(
       "basic call",
       () => {
-        let state: EventTable.state = EventTable.initialState();
-        EventTable.resolveCloseEdit(state)
+        let state: EventTable.state = {
+          ...EventTable.initialState(),
+          edit: {active: true, listIndex: 5, eventIndex: 6}
+        };
+        state
+        |> EventTable.reduceCloseEdit
         |> expect
-        |> toEqual({...state, edit: {active: false, listIndex: -1, eventIndex: -1}})
+        |> toEqual({...state, edit: {active: false, listIndex: (-1), eventIndex: (-1)}})
       }
     )
 );

@@ -20,9 +20,9 @@ let initialState = () => {
   edit: {active: false, listIndex: (-1), eventIndex: (-1)}
 };
 
-let resolveOpenEdit = (listIndex, eventIndex, state) => {...state, edit: {active: true, listIndex, eventIndex}};
+let reduceOpenEdit = (~listIndex, ~eventIndex, state) => {...state, edit: {active: true, listIndex, eventIndex}};
 
-let resolveCloseEdit = (state) => {...state, edit: {active: false, listIndex: (-1), eventIndex: (-1)}};
+let reduceCloseEdit = (state) => {...state, edit: {active: false, listIndex: (-1), eventIndex: (-1)}};
 
 type action =
   | MoveEvent
@@ -32,8 +32,8 @@ type action =
 let reducer = (action, state) =>
   switch action {
   | MoveEvent => ReasonReact.Update(state)
-  | OpenEdit(listIndex, eventIndex) => ReasonReact.Update(resolveOpenEdit(listIndex, eventIndex, state))
-  | CloseEdit => ReasonReact.Update(resolveCloseEdit(state))
+  | OpenEdit(listIndex, eventIndex) => ReasonReact.Update(state |> reduceOpenEdit(~listIndex, ~eventIndex))
+  | CloseEdit => ReasonReact.Update(state |> reduceCloseEdit)
   };
 
 let component = ReasonReact.reducerComponent("EventTable");
