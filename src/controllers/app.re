@@ -12,9 +12,7 @@ type action =
 
 let mapUrlToRoute = (url: ReasonReact.Router.url) =>
   switch url.path {
-  | [] => Home
-  | ["login"] => Login
-  | ["signup"] => SignUp
+  | [] => Home | ["login"] => Login | ["signup"] => SignUp
   | _ => Home
   };
 

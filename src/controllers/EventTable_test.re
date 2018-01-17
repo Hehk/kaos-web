@@ -57,3 +57,21 @@ describe(
       }
     )
 );
+
+describe("reduceAddEvent", () => test("basic call", () => {
+  let state = EventTable.initialState();
+  let event: Event.t = { name: "new event" };
+  let initialState = {
+    ...state,
+    eventLists: [
+      {name: "test", events: [] }
+    ]
+  };
+  let finalState = {
+    ...state,
+    eventLists: [
+    { name: "test", events: [event] }
+    ]
+  };
+  initialState |> EventTable.reduceAddEvent(~listIndex=0, ~event) |> expect |> toEqual(finalState);
+}));

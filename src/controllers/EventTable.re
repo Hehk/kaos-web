@@ -23,17 +23,29 @@ let initialState = () => {
 let reduceOpenEdit = (~listIndex, ~eventIndex, state) => {...state, edit: {active: true, listIndex, eventIndex}};
 
 let reduceCloseEdit = (state) => {...state, edit: {active: false, listIndex: (-1), eventIndex: (-1)}};
+let reduceAddEvent = (~listIndex, ~event:Event.t, state) => { 
+  ...state,
+  eventLists: List.mapi((i, eventList: EventList.t)=> {
+    if (i == listIndex) {
+      { ...eventList, events: eventList.events @ [event] };
+    } else {
+      eventList
+    };
+  }, state.eventLists)
+};
 
 type action =
   | MoveEvent
   | OpenEdit(int, int)
-  | CloseEdit;
+  | CloseEdit
+  | AddEvent(int, Event.t);
 
 let reducer = (action, state) =>
   switch action {
   | MoveEvent => ReasonReact.Update(state)
   | OpenEdit(listIndex, eventIndex) => ReasonReact.Update(state |> reduceOpenEdit(~listIndex, ~eventIndex))
   | CloseEdit => ReasonReact.Update(state |> reduceCloseEdit)
+  | AddEvent(listIndex, event) => ReasonReact.Update(state |> reduceAddEvent(~listIndex, ~event))
   };
 
 let component = ReasonReact.reducerComponent("EventTable");
@@ -42,8 +54,9 @@ let make = (_) => {
   ...component,
   initialState,
   reducer,
-  render: ({state}) =>
+  render: (self) =>
     <div className="dt w-100 mw8 center flex flex-wrap justify-center">
-      (state.eventLists |> List.map(({name, events}: EventList.t) => <EventList name events key=name />) |> listEl)
+      (self.state.eventLists |> List.mapi((i, {name, events}: EventList.t) => <EventList name events
+      onAddEvent=((event) => self.send(AddEvent(i, event))) key=name />) |> listEl)
     </div>
 };
