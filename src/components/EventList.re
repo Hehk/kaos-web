@@ -20,7 +20,7 @@ let make = (~name, ~events: list(Event.t)=[], ~onAddEvent, _children) => {
       <div className="f3 b dark-gray"> (textEl(name)) </div>
       (
         events
-        |> List.map((event: Event.t)=> <Event key=(name ++ event.name) name=event.name />)
+        |> List.map((event: Event.t)=> <Event key=(name ++ event.name) onClick=(() => Js.log("test")) name=event.name />)
         |> listEl
       )
       <div className="add-new-event pa3 gray" onClick=createEvent(onAddEvent)> (textEl("Add new event")) </div>

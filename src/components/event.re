@@ -6,10 +6,10 @@ type t = {
 
 let component = ReasonReact.statelessComponent("Event");
 
-let make = (~name, _children) => {
+let make = (~name, ~onClick, _children) => {
   ...component,
-  render: (_self) => <div className="light-purple pa3 mt3 br1 bg-light-purple hover-white">
-    <span className="white">(textEl(name))</span> <span
-
-  className="fr fa fa-ellipsis-h"></span> </div>
+  render: (_self) => <div onClick=(_event => onClick()) className="event light-purple pa3 mt3 br1 bg-light-purple hover-white">
+    <span className="white">(textEl(name))</span> 
+    <span className="fr fa fa-ellipsis-h" />
+  </div>
 };
