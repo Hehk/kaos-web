@@ -8,7 +8,9 @@ Enzyme.configureEnzyme(Enzyme.react_16_adapter());
 
 let shallow = Enzyme.shallow;
 let sampleOnAddEvent = (_event) => { () };
-let setup = (~name="", ~events=[], ~onAddEvent=sampleOnAddEvent,  ()) => Enzyme.shallow(<EventList events name onAddEvent/>);
+let sampleOnEventClick = (_eventIndex) => Js.log("onEventClick clicked");
+let setup = (~name="", ~events=[], ~onAddEvent=sampleOnAddEvent,
+             ~onEventClick=sampleOnEventClick,  ()) => Enzyme.shallow(<EventList events name onAddEvent onEventClick />);
 
 describe(
   "EventList Component",
@@ -17,7 +19,7 @@ describe(
     test("takes a name and renders it in a header", () => {
       let name = "testing";
       let textElement = textEl(name);
-      shallow(<EventList name onAddEvent=sampleOnAddEvent />) |> Enzyme.contains(textElement) |> expect |> toBe(true);
+      setup(~name, ()) |> Enzyme.contains(textElement) |> expect |> toBe(true);
       });
     test(
       "renders a list of events",
@@ -29,10 +31,10 @@ describe(
     test("clicking on add button triggers onAddEvent", () => {
       let clickFired = ref(false);
       let onAddEvent = (_event) => clickFired := true;
-      shallow(<EventList onAddEvent name="test" />) |> Enzyme.find(".add-new-event") |>
+      setup(~onAddEvent, ()) |> Enzyme.find(".add-new-event") |>
       Enzyme.simulate("click");
       clickFired^ |> expect |> toBe(true);
     });
 
-  });
+      });
 

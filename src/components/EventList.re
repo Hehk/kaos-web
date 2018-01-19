@@ -13,14 +13,15 @@ let createEvent = (listener, _event) => {
     };
   listener(event)
 };
-let make = (~name, ~events: list(Event.t)=[], ~onAddEvent, _children) => {
+let make = (~name, ~events: list(Event.t)=[], ~onAddEvent, ~onEventClick, _children) => {
   ...component,
   render: _self => {
     <div className="w-100 mw6 w-30-l pa2 ">
       <div className="f3 b dark-gray"> (textEl(name)) </div>
       (
         events
-        |> List.map((event: Event.t)=> <Event key=(name ++ event.name) onClick=(() => Js.log("test")) name=event.name />)
+        |> List.mapi((eventIndex, event: Event.t)=> <Event key=(name ++ event.name) onClick=(() =>
+        onEventClick(eventIndex)) name=event.name />)
         |> listEl
       )
       <div className="add-new-event pa3 gray" onClick=createEvent(onAddEvent)> (textEl("Add new event")) </div>

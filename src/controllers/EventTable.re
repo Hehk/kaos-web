@@ -56,7 +56,14 @@ let make = (_) => {
   reducer,
   render: (self) =>
     <div className="dt w-100 mw8 center flex flex-wrap justify-center">
-      (self.state.eventLists |> List.mapi((i, {name, events}: EventList.t) => <EventList name events
-      onAddEvent=((event) => self.send(AddEvent(i, event))) key=name />) |> listEl)
+      (self.state.edit.active ? textEl("active") : textEl("inactive"))
+      (self.state.eventLists |> List.mapi((listIndex, {name, events}: EventList.t) =>
+        <EventList
+          name
+          events
+          onEventClick=(eventIndex => self.send(OpenEdit(listIndex, eventIndex)))
+          onAddEvent=((event) => self.send(AddEvent(listIndex, event)))
+          key=name
+        />) |> listEl)
     </div>
 };
